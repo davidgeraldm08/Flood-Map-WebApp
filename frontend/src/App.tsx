@@ -484,17 +484,7 @@ function AdminPage() {
   const [reports, setReports] = useState<any[]>([]);
   const [approvedReports, setApprovedReports] = useState<any[]>([]);
 
-  const fetchPending = async () => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/reports/pending`, {
-        headers: { 'x-admin-password': password },
-      });
-      const data = await response.json();
-      setReports(data);
-    } catch (error) {
-      console.error('Failed to fetch pending reports:', error);
-    }
-  };
+  
 
   const fetchApproved = async () => {
     try {

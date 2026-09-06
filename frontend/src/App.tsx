@@ -68,7 +68,7 @@ function ReportModal({
   }
 
   try {
-    const response = await fetch('http://localhost:3000/api/reports', {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/reports`, {
       method: 'POST',
       body: formData,
     });
@@ -271,7 +271,7 @@ function PhotoCarousel({
     setCurrentIndex((prev) => (prev === photos.length - 1 ? 0 : prev + 1));
   };
 
-  const currentUrl = `http://localhost:3000/${photos[currentIndex]}`;
+  const currentUrl = `${import.meta.env.VITE_API_URL}/${photos[currentIndex]}`;
 
   return (
     <div className="relative w-full">
@@ -323,7 +323,7 @@ function MapView() {
 
 
 useEffect(() => {
-  fetch('http://localhost:3000/api/reports')
+  fetch(`${import.meta.env.VITE_API_URL}/api/reports`)
     .then((res) => res.json())
     .then((data) => setApprovedReports(data))
     .catch((err) => console.error('Failed to fetch reports:', err));
@@ -380,7 +380,7 @@ useEffect(() => {
     position={[report.lat, report.lng]}
     icon={
       report.photos && report.photos.length > 0
-        ? createPhotoIcon(`http://localhost:3000/${report.photos[0]}`)
+        ? createPhotoIcon(`${import.meta.env.VITE_API_URL}/${report.photos[0]}`)
         : undefined
     }
   >
@@ -403,7 +403,7 @@ useEffect(() => {
     {report.video_path && (
       <video
         controls
-        src={`http://localhost:3000/${report.video_path}`}
+        src={`${import.meta.env.VITE_API_URL}/${report.video_path}`}
         className="w-full mt-2 rounded"
       />
     )}
@@ -486,7 +486,7 @@ function AdminPage() {
 
   const fetchPending = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/reports/pending', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/reports/pending`, {
         headers: { 'x-admin-password': password },
       });
       const data = await response.json();
@@ -498,7 +498,7 @@ function AdminPage() {
 
   const fetchApproved = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/reports');
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/reports`);
       const data = await response.json();
       setApprovedReports(data);
     } catch (error) {
@@ -511,7 +511,7 @@ function AdminPage() {
     setLoginError('');
 
     try {
-      const response = await fetch('http://localhost:3000/api/reports/pending', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/reports/pending`, {
         headers: { 'x-admin-password': password },
       });
 
@@ -536,7 +536,7 @@ function AdminPage() {
 
   const handleStatusUpdate = async (id: number, status: 'approved' | 'rejected') => {
     try {
-      const response = await fetch(`http://localhost:3000/api/reports/${id}/status`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/reports/${id}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -562,7 +562,7 @@ function AdminPage() {
     if (!confirmed) return;
 
     try {
-      const response = await fetch(`http://localhost:3000/api/reports/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/reports/${id}`, {
         method: 'DELETE',
         headers: { 'x-admin-password': password },
       });
@@ -661,7 +661,7 @@ function AdminPage() {
               {report.photos.map((photoPath: string, index: number) => (
                 <img
                   key={index}
-                  src={`http://localhost:3000/${photoPath}`}
+                  src={`${import.meta.env.VITE_API_URL}/${photoPath}`}
                   className="w-24 h-24 object-cover rounded"
                 />
               ))}
@@ -669,7 +669,7 @@ function AdminPage() {
             {report.video_path && (
               <video
                 controls
-                src={`http://localhost:3000/${report.video_path}`}
+                src={`${import.meta.env.VITE_API_URL}/${report.video_path}`}
                 className="w-64 mt-2 rounded"
               />
             )}

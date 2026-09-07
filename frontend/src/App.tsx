@@ -447,6 +447,7 @@ useEffect(() => {
       <MapContainer
         center={[15.03860, 120.68091]}
         zoom={13}
+        zoomControl={false}
         className="w-full h-full"
       >
         <TileLayer
@@ -497,6 +498,12 @@ useEffect(() => {
   </Marker>
 ))}
       </MapContainer>
+
+      <img
+        src="/csfplogo.png"
+        alt="City of San Fernando Logo"
+        className="absolute top-4 left-4 z-[1000] w-14 h-14 object-contain drop-shadow-lg"
+      />
 
       <div className="absolute top-20 left-1/2 -translate-x-1/2 z-[1000] bg-white/90 px-5 py-2 rounded-lg shadow-lg text-center max-w-[90vw]">
       <h1 className="text-lg font-bold text-blue-800">FLOOD MAP</h1>

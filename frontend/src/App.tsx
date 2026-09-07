@@ -443,7 +443,7 @@ useEffect(() => {
 
   return (
     
-    <div className="relative w-screen h-screen">
+    <div className="relative w-screen h-dvh">
       <MapContainer
         center={[15.03860, 120.68091]}
         zoom={13}

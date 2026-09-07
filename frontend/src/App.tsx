@@ -498,7 +498,7 @@ useEffect(() => {
 ))}
       </MapContainer>
 
-      <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] bg-white/90 px-5 py-2 rounded-lg shadow-lg text-center max-w-[90vw]">
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 z-[1000] bg-white/90 px-5 py-2 rounded-lg shadow-lg text-center max-w-[90vw]">
       <h1 className="text-lg font-bold text-blue-800">FLOOD MAP</h1>
       <p className="text-xs text-gray-600">Report and view flood conditions in San Fernando</p>
       </div>

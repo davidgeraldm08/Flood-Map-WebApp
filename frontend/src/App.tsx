@@ -321,6 +321,80 @@ function formatDate(dateString: string) {
 }
 
 
+const hotlines = [
+  {
+    office: 'CDRRMO - San Fernando Rescue Unit',
+    numbers: ['0459614357', '0456496076', '09399362423'],
+  },
+  {
+    office: 'City of San Fernando Police Headquarters',
+    numbers: ['09985985465', '09568205255'],
+  },
+  {
+    office: 'Bureau of Fire Protection - San Fernando',
+    numbers: ['09232359725'],
+  },
+  {
+    office: 'City Public Order and Safety Coordinating Office',
+    numbers: ['0456265065', '09678894569'],
+  },
+  {
+    office: 'City Hall',
+    numbers: ['0456498540'],
+  },
+  {
+    office: 'Heroes Hall',
+    numbers: ['0456498080'],
+  },
+  {
+    office: 'National Emergency Hotline',
+    numbers: ['911'],
+  },
+];
+
+function formatDisplay(number: string) {
+  if (number.length <= 4) return number;
+  return number.replace(/(\d{4})(\d{3})(\d{4})/, '$1-$2-$3');
+}
+
+function HotlinesModal({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="fixed inset-0 z-[2000] flex items-center justify-center bg-black/50">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-6 relative max-h-[85vh] overflow-y-auto">
+        <button
+          className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
+          onClick={onClose}
+        >
+          ✕
+        </button>
+        <h2 className="text-xl font-bold mb-4 text-red-700">Emergency Hotlines</h2>
+        <div className="flex flex-col gap-4">
+          {hotlines.map((entry) => (
+            <div key={entry.office}>
+              <p className="font-semibold text-sm mb-1">{entry.office}</p>
+              <div className="flex flex-col gap-1">
+                {entry.numbers.map((number) => (
+                  <a
+                    key={number}
+                    href={`tel:${number}`}
+                    className="bg-red-600 text-white text-center py-2 rounded hover:bg-red-700"
+                  >
+                    Call {formatDisplay(number)}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+
+
+
 function MapView() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pickedLocation, setPickedLocation] = useState<{ lat: number; lng: number } | null>(null);
@@ -328,6 +402,7 @@ function MapView() {
   const [roadName, setRoadName] = useState('');
   const [approvedReports, setApprovedReports] = useState<any[]>([]);
   const [fullscreenPhoto, setFullscreenPhoto] = useState<string | null>(null);
+  const [showHotlines, setShowHotlines] = useState(false);
 
 
 
@@ -367,6 +442,7 @@ useEffect(() => {
 
 
   return (
+    
     <div className="relative w-screen h-screen">
       <MapContainer
         center={[15.03860, 120.68091]}
@@ -422,6 +498,11 @@ useEffect(() => {
 ))}
       </MapContainer>
 
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] bg-white/90 px-5 py-2 rounded-lg shadow-lg text-center max-w-[90vw]">
+      <h1 className="text-lg font-bold text-blue-800">FLOOD MAP</h1>
+      <p className="text-xs text-gray-600">Report and view flood conditions in San Fernando</p>
+      </div>
+
       <button
         className="absolute top-4 right-4 z-[1000] bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg shadow-lg hover:bg-blue-700"
         onClick={() => setIsModalOpen(true)}
@@ -429,6 +510,15 @@ useEffect(() => {
         Report Flood
       </button>
 
+
+      <button
+      className="absolute bottom-4 right-4 z-[1000] bg-red-600 text-white font-semibold px-4 py-2 rounded-lg shadow-lg hover:bg-red-700"
+      onClick={() => setShowHotlines(true)}
+      >
+      Hotlines
+      </button>
+
+{showHotlines && <HotlinesModal onClose={() => setShowHotlines(false)} />}
 
       <button
       className="absolute top-4 right-40 z-[1000] bg-white text-gray-800 font-semibold px-4 py-2 rounded-lg shadow-lg hover:bg-gray-100"
